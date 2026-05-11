@@ -14,9 +14,9 @@ import {
   Bot,
   Settings,
   ChevronLeft,
-  Zap,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
+import { Logo } from '@/components/ui/logo'
 
 const NAV_ITEMS = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard', accent: 'text-blue-400' },
@@ -43,9 +43,7 @@ export function Sidebar() {
     >
       {/* Logo */}
       <div className="flex h-14 items-center gap-3 px-4 border-b border-white/[0.06]">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 shrink-0">
-          <Zap className="h-4 w-4 text-white" />
-        </div>
+        <Logo size={28} />
         <AnimatePresence>
           {!collapsed && (
             <motion.span

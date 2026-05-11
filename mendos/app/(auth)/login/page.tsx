@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Zap } from 'lucide-react'
+import { Logo } from '@/components/ui/logo'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -37,8 +37,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-8">
         <div className="text-center space-y-3">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600">
-            <Zap className="h-6 w-6 text-white" />
+          <div className="mx-auto flex items-center justify-center">
+            <Logo size={48} />
           </div>
           <h1 className="text-2xl font-semibold text-white tracking-tight">
             {mode === 'signin' ? 'Welcome back' : 'Create your MendOS'}

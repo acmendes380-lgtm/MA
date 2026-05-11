@@ -5,7 +5,7 @@ import { useCallback, useRef } from 'react'
 export function useQuickNotes() {
   const supabase = createClient()
   const qc = useQueryClient()
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>()
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   const query = useQuery({
     queryKey: ['quick-notes'],

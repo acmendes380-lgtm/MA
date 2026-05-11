@@ -16,6 +16,12 @@ describe('getPriorityBadge', () => {
   it('returns default variant for low priority', () => {
     expect(getPriorityBadge('low')).toBe('default')
   })
+  it('returns blue variant for medium priority', () => {
+    expect(getPriorityBadge('medium')).toBe('blue')
+  })
+  it('returns amber variant for high priority', () => {
+    expect(getPriorityBadge('high')).toBe('amber')
+  })
 })
 
 describe('computeProjectProgress', () => {

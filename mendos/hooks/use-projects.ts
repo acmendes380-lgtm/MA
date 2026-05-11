@@ -1,10 +1,11 @@
 'use client'
+import { useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { createClient } from '@/lib/supabase/client'
 import type { Project, ProjectCategory, Priority } from '@/types'
 
 export function useProjects(category?: ProjectCategory) {
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
   const qc = useQueryClient()
 
   const query = useQuery({
@@ -27,8 +28,8 @@ export function useProjects(category?: ProjectCategory) {
       deadline?: string
       color: string
     }) => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('Not authenticated')
+      const { data: { user }, error: authError } = await supabase.auth.getUser()
+      if (authError || !user) throw authError ?? new Error('Not authenticated')
       const { data, error } = await supabase
         .from('projects')
         .insert({ user_id: user.id, ...input })
@@ -45,7 +46,10 @@ export function useProjects(category?: ProjectCategory) {
       const { error } = await supabase.from('projects').update(updates).eq('id', id)
       if (error) throw error
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['projects'] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['projects'] })
+      qc.invalidateQueries({ queryKey: ['project'] })
+    },
   })
 
   const deleteProject = useMutation({
@@ -53,14 +57,17 @@ export function useProjects(category?: ProjectCategory) {
       const { error } = await supabase.from('projects').delete().eq('id', id)
       if (error) throw error
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['projects'] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['projects'] })
+      qc.invalidateQueries({ queryKey: ['project'] })
+    },
   })
 
   return { ...query, createProject, updateProject, deleteProject }
 }
 
 export function useProject(id: string) {
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
   return useQuery({
     queryKey: ['project', id],
     queryFn: async () => {

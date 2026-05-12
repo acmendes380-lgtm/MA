@@ -1,7 +1,2 @@
-export default function CoachPage() {
-  return (
-    <div className="flex items-center justify-center h-64 text-neutral-600 text-sm">
-      AI Life Coach — coming in Phase 6
-    </div>
-  )
-}
+export const dynamic = 'force-dynamic'
+export { default } from './coach-client'

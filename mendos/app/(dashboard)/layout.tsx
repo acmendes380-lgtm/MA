@@ -1,5 +1,7 @@
 import { Sidebar } from '@/components/layout/sidebar'
 import { TopBar } from '@/components/layout/topbar'
+import { CoachSidebar } from '@/components/coach/coach-sidebar'
+import { CoachTrigger } from '@/components/coach/coach-trigger'
 
 export default function DashboardLayout({
   children,
@@ -15,6 +17,8 @@ export default function DashboardLayout({
           <div className="mx-auto max-w-[1400px] px-6 py-6">{children}</div>
         </main>
       </div>
+      <CoachSidebar />
+      <CoachTrigger />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { openai } from '@/lib/openai/client'
+import { getOpenAI } from '@/lib/openai/client'
 import type { Project } from '@/types'
 
 export async function POST(request: NextRequest) {
@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
   const { project }: { project: Project } = await request.json()
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const completion = await getOpenAI().chat.completions.create({
+      model: 'openai/gpt-4o-mini',
       max_tokens: 400,
       messages: [
         {

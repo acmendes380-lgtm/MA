@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { openai } from '@/lib/openai/client'
+import { getOpenAI } from '@/lib/openai/client'
 import { buildWeaknessScores, calcFairwayPct, calcGIRPct } from '@/lib/utils/golf-utils'
 import type { GolfRound } from '@/types'
 
@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
     : 'No round data available yet.'
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const completion = await getOpenAI().chat.completions.create({
+      model: 'openai/gpt-4o-mini',
       max_tokens: 350,
       messages: [
         {

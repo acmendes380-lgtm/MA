@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { openai } from '@/lib/openai/client'
+import { getOpenAI } from '@/lib/openai/client'
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient()
@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
     .join('\n')
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const completion = await getOpenAI().chat.completions.create({
+      model: 'openai/gpt-4o-mini',
       max_tokens: 300,
       messages: [
         {

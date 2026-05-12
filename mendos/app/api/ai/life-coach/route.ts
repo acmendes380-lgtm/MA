@@ -1,7 +1,7 @@
 // app/api/ai/life-coach/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { openai } from '@/lib/openai/client'
+import { getOpenAI } from '@/lib/openai/client'
 import { format, subDays } from 'date-fns'
 
 export async function POST(request: NextRequest) {
@@ -70,8 +70,8 @@ export async function POST(request: NextRequest) {
   }))
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const completion = await getOpenAI().chat.completions.create({
+      model: 'openai/gpt-4o-mini',
       max_tokens: 450,
       messages: [
         {

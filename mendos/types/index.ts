@@ -144,6 +144,16 @@ export interface Assignment {
   due_date: string
   status: 'pending' | 'submitted' | 'graded'
   grade: number | null
+  notes?: string | null
+}
+
+export interface Exam {
+  id: string
+  user_id: string
+  subject_id: string
+  title: string
+  date: string
+  notes?: string | null
 }
 
 export interface Client {

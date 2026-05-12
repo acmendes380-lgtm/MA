@@ -168,12 +168,14 @@ export interface Client {
   value: number
   notes: string | null
   last_contact: string | null
+  created_at: string
 }
 
 export interface PipelineDeal {
   id: string
   user_id: string
   client_id: string | null
+  title: string
   stage: 'lead' | 'contacted' | 'proposal' | 'won' | 'lost'
   value: number
   notes: string | null

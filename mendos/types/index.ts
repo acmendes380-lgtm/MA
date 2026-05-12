@@ -153,6 +153,8 @@ export interface Exam {
   subject_id: string
   title: string
   date: string
+  status: 'upcoming' | 'completed'
+  grade: number | null
   notes?: string | null
 }
 
